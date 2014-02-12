@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteBase /Tweet+/
+
+# General rewrite rules
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+
+# Home
+RewriteRule ^home$ index.php
+RewriteRule ^home/$ index.php
