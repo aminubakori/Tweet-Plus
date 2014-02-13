@@ -9,7 +9,7 @@
 	$dbconnect = sqlite_open(DB, 0666);
 	/*Query to add addressbook table*/
 	$query = "CREATE TABLE users (
-			    id int(10) NOT NULL PRIMARY KEY,
+			    id int(10) PRIMARY KEY,
 			    oauth_uid text,
 			    oauth_token text,
 			    oauth_secret text,

@@ -6,7 +6,7 @@
 ?>
 <?php include_once("config/config.php"); ?>
 <?php
-	if(!isset($_SESSION['username'])) //header("Location:".Base_Url."/login.php");
+	if(!isset($_SESSION['username'])) header("Location:".Base_Url."/login.php");
 ?>
 <!doctype html>
 <html>
@@ -32,10 +32,9 @@
 		</header>
 
 		<section class="container">
-	    	<h1>Welcome</h1>
+	    	<h1>Hello <?php echo (!empty($_SESSION['username']) ? '@' . $_SESSION['username'] : 'Guest'); ?></h1>
 	    	<p>This is a small twitter client application written in PHP and SQLite.</p>
 
-	    	<center><a href="<?php echo Base_Url; ?>/login.php"><img src="<?php echo Base_Url; ?>/twitteroauth/images/lighter.png"/></a></center>
 		</section>
 
 	    <footer>

@@ -25,22 +25,23 @@
 		    header("Location:".Base_Url."/login.php");
 		} else {
 			$dbconnect = sqlite_open(DB, 0666);
-			$query = "SELECT * FROM users WHERE oauth_uid = '$user_info->id'";
-			$query = sqlite_query($dbconnect,$query);
-			$data = sqlite_fetch_array($query, SQLITE_ASSOC);
-			if(sqlite_num_rows($query) < 0) {
-		        $query = "INSERT INTO users (oauth_uid, username, oauth_token, oauth_secret) VALUES ({$user_info->id}, '{$user_info->screen_name}', '{$access_token['oauth_token']}', '{$access_token['oauth_token_secret']}')";
-				$query = sqlite_query($dbconnect,$query);
+			$query1 = "SELECT * FROM users WHERE oauth_uid = $user_info->id LIMIT 1";
+			$query1 = sqlite_query($dbconnect,$query1);
+			$data = sqlite_fetch_array($query1, SQLITE_ASSOC);
+			if(sqlite_num_rows($query1) <= 0) {
+		        $query2 = "INSERT INTO users (id, oauth_uid, username, oauth_token, oauth_secret) VALUES (null, {$user_info->id}, '{$user_info->screen_name}', '{$access_token['oauth_token']}', '{$access_token['oauth_token_secret']}')";
+				$query2 = sqlite_query($dbconnect,$query2);
 
-				$query = "SELECT * FROM users WHERE id = '". last_insert_rowid()."'";
-				$query = sqlite_query($dbconnect,$query);
-				$data = sqlite_fetch_array($query, SQLITE_ASSOC);
+				$query3 = "SELECT * FROM users WHERE id = '". $dbconnect->lastInsertRowid()."'  LIMIT 1";
+				$query3 = sqlite_query($dbconnect,$query3);
+				$data = sqlite_fetch_array($query3, SQLITE_ASSOC);
 			}else {
+				echo "hi";
 				// Update the tokens
-        		$query = "UPDATE users SET oauth_token = '{$access_token['oauth_token']}', oauth_secret = '{$access_token['oauth_token_secret']}' AND oauth_uid = {$user_info->id}";
-        		$query = sqlite_query($dbconnect,$query);
+        		$query4 = "UPDATE users SET oauth_token = '{$access_token['oauth_token']}', oauth_secret = '{$access_token['oauth_token_secret']}' AND oauth_uid = {$user_info->id}";
+        		$query4 = sqlite_query($dbconnect,$query4);
 			}
-			print_r($data);
+			var_dump($data);
 			$_SESSION['id'] = $data['id'];
 		    $_SESSION['username'] = $data['username'];
 		    $_SESSION['oauth_uid'] = $data['oauth_uid'];

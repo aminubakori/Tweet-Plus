@@ -10,7 +10,7 @@
 	// The TwitterOAuth instance
 	$twitteroauth = new TwitterOAuth('iG6RGp25g6GXHRKSN6XNA', '1a7w4Rmem40pAB0Q2q1nL7cGBT3ykqACJU59E0p84');
 	// Requesting authentication tokens, the parameter is the URL we will be redirected to
-	$request_token = $twitteroauth->getRequestToken('http://localhost.com/Tweet+/login_oauth.php');
+	$request_token = $twitteroauth->getRequestToken('http://localhost.com/Tweet-Plus/login_oauth.php');
 	 
 	// Saving them into the session
 	$_SESSION['oauth_token'] = $request_token['oauth_token'];
