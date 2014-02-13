@@ -32,7 +32,7 @@
 		        $query2 = "INSERT INTO users (id, oauth_uid, username, oauth_token, oauth_secret) VALUES (null, {$user_info->id}, '{$user_info->screen_name}', '{$access_token['oauth_token']}', '{$access_token['oauth_token_secret']}')";
 				$query2 = sqlite_query($dbconnect,$query2);
 
-				$query3 = "SELECT * FROM users WHERE id = '". $dbconnect->lastInsertRowid()."'  LIMIT 1";
+				$query3 = "SELECT * FROM users ORDER BY id DESC LIMIT 1";
 				$query3 = sqlite_query($dbconnect,$query3);
 				$data = sqlite_fetch_array($query3, SQLITE_ASSOC);
 			}else {
@@ -41,14 +41,14 @@
         		$query4 = "UPDATE users SET oauth_token = '{$access_token['oauth_token']}', oauth_secret = '{$access_token['oauth_token_secret']}' AND oauth_uid = {$user_info->id}";
         		$query4 = sqlite_query($dbconnect,$query4);
 			}
-			var_dump($data);
+			//var_dump($data);
 			$_SESSION['id'] = $data['id'];
 		    $_SESSION['username'] = $data['username'];
 		    $_SESSION['oauth_uid'] = $data['oauth_uid'];
 		    $_SESSION['oauth_token'] = $data['oauth_token'];
 		    $_SESSION['oauth_secret'] = $data['oauth_secret'];
 		 	sqlite_close($dbconnect);
-		    //header("Location:".Base_Url."/user.php");
+		    header("Location:".Base_Url."/user.php");
 		}
 	} else {
 	    // Something's missing, go back to square 1

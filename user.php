@@ -5,6 +5,8 @@
 	}
 ?>
 <?php include_once("config/config.php"); ?>
+
+<?php include_once("twitteroauth/twitteroauth/twitteroauth.php"); ?>
 <?php
 	if(!isset($_SESSION['username'])) header("Location:".Base_Url."/login.php");
 ?>
@@ -34,6 +36,12 @@
 		<section class="container">
 	    	<h1>Hello <?php echo (!empty($_SESSION['username']) ? '@' . $_SESSION['username'] : 'Guest'); ?></h1>
 	    	<p>This is a small twitter client application written in PHP and SQLite.</p>
+
+	    	<?php
+	    		    $twitteroauth = new TwitterOAuth('iG6RGp25g6GXHRKSN6XNA', '1a7w4Rmem40pAB0Q2q1nL7cGBT3ykqACJU59E0p84', $_SESSION['oauth_token'], $_SESSION['oauth_secret']);
+	    		    $home_timeline = $twitteroauth->get('statuses/home_timeline', array('count' => 40));
+					var_dump($home_timeline);
+	    	?>
 
 		</section>
 
